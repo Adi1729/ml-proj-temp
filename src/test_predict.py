@@ -3,17 +3,18 @@ from sklearn import preprocessing
 import os
 from sklearn import ensemble
 from sklearn import metrics
-from sklearn import ensemble
 from . import dispatcher
 import joblib
 import numpy as np
 
 TEST_DATA= os.environ.get("TEST_DATA")
 MODEL = os.environ.get("MODEL")
+MODEL = 'randomforest'
 
+os.chdir(r'/home/aditya/Kaggle/workspace/ml-proj-template')
+TEST_DATA = './input/test.csv'
 def predict():
 
-    test_df = pd.read_csv(TEST_DATA) 
     
     test_idx = test_df['id'].values
     cols = joblib.load(f"models/columns.pkl")
@@ -24,7 +25,7 @@ def predict():
         encoders = joblib.load(f"models/{MODEL}_{FOLD}_label_encoder.pkl")
         print(f'Loading {MODEL}_{FOLD}...')
         model =  joblib.load(f"models/{MODEL}_{FOLD}.pkl")
-        test_df = pd.read_csv(TEST_DATA)
+        test_df = pd.read_csv(TEST_DATA)   
     
         for c in cols:
             lbl =   encoders[c]
@@ -42,7 +43,7 @@ def predict():
  
     predictions /=5
 
-    return pd.DataFrame(np.column_stack((test_idx,preds)),columns= ['id','target'])
+    return pd.dataframe(np.columns.stack(test_idx,preds),columns= ['id','target'])
 
 
 if __name__ == '__main__':
