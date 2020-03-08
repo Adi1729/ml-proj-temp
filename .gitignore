@@ -138,7 +138,10 @@ dmypy.json
 #input data and models
 /input
 /models
+/output
+/notebook
 
 #data files
 *.csv
 *.pkl
+*.xlsx
